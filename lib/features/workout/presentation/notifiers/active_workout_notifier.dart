@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gym_tracker/core/error/failures.dart';
 import 'package:gym_tracker/features/exercise/domain/entities/exercise.dart';
 import 'package:gym_tracker/features/exercise/domain/entities/equipment_type.dart';
 import 'package:gym_tracker/features/exercise/domain/entities/muscle_group.dart';
@@ -142,9 +143,11 @@ class ActiveWorkoutNotifier extends AutoDisposeFamilyAsyncNotifier<
       ),
     );
 
-    // Surface validation errors without crashing the screen
+    // Surface validation/DB errors via the side-channel provider.
+    // The screen listens to workoutErrorProvider and shows a Snackbar.
     if (saveResult.isLeft()) {
-      // Keep current state — the UI shows the error inline
+      final failure = saveResult.fold((f) => f, (_) => null) as Failure;
+      ref.read(workoutErrorProvider.notifier).state = failure;
       return;
     }
 

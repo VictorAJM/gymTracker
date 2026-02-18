@@ -35,9 +35,10 @@ class ExerciseCard extends ConsumerWidget {
       elevation: isExpanded ? 4 : 1,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: isExpanded
-            ? BorderSide(color: colorScheme.primary, width: 1.5)
-            : BorderSide.none,
+        side:
+            isExpanded
+                ? BorderSide(color: colorScheme.primary, width: 1.5)
+                : BorderSide.none,
       ),
       child: InkWell(
         onTap: onTap,
@@ -68,7 +69,7 @@ class ExerciseCard extends ConsumerWidget {
                       setNumber: set.setNumber,
                       previousPerformance: entry.previousPerformance,
                       loggedSet: set,
-                      onSave: (_, __) {}, // no-op for saved sets
+                      onSave: (w, r) {}, // no-op for saved sets
                       onDelete: () => onRemoveSet(set.id),
                     ),
                   ),
@@ -185,9 +186,9 @@ class _MuscleChip extends StatelessWidget {
     return Chip(
       label: Text(label),
       padding: EdgeInsets.zero,
-      labelStyle: Theme.of(context).textTheme.labelSmall?.copyWith(
-            color: colorScheme.onTertiaryContainer,
-          ),
+      labelStyle: Theme.of(
+        context,
+      ).textTheme.labelSmall?.copyWith(color: colorScheme.onTertiaryContainer),
       backgroundColor: colorScheme.tertiaryContainer,
       side: BorderSide.none,
       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,

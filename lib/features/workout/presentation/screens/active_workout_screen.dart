@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gym_tracker/core/error/failures.dart';
+import 'package:gym_tracker/core/presentation/snackbar_helper.dart';
 import 'package:gym_tracker/features/workout/presentation/notifiers/active_workout_notifier.dart';
 import 'package:gym_tracker/features/workout/presentation/providers/workout_providers.dart';
 import 'package:gym_tracker/features/workout/presentation/state/active_workout_state.dart';
@@ -9,6 +11,9 @@ import 'package:gym_tracker/features/workout/presentation/widgets/exercise_card.
 ///
 /// Receives [args] (split type + exercise IDs) from [SplitSelectionScreen].
 /// Consumes [activeWorkoutProvider] to drive the UI.
+///
+/// Error handling: listens to [workoutErrorProvider] and shows a Snackbar
+/// whenever the notifier writes a [Failure] (e.g. validation or DB error).
 class ActiveWorkoutScreen extends ConsumerWidget {
   const ActiveWorkoutScreen({super.key, required this.args});
 
@@ -16,6 +21,19 @@ class ActiveWorkoutScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // ── Error side-channel ─────────────────────────────────────────────────
+    // Listen to failures emitted by the notifier (e.g. validation errors from
+    // addSet). Show a Snackbar and immediately reset the provider to null so
+    // the same error doesn't re-fire on the next build.
+    ref.listen<Failure?>(workoutErrorProvider, (_, failure) {
+      if (failure == null) return;
+      SnackbarHelper.showFailure(context, failure);
+      // Reset so the same failure doesn't re-show on hot-reload / rebuild.
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ref.read(workoutErrorProvider.notifier).state = null;
+      });
+    });
+
     final asyncState = ref.watch(activeWorkoutProvider(args));
 
     return Scaffold(
@@ -57,8 +75,9 @@ class ActiveWorkoutScreen extends ConsumerWidget {
       context: context,
       builder: (_) => AlertDialog(
         title: const Text('Finish Workout?'),
-        content: const Text('Your sets have already been saved. '
-            'Ready to wrap up?'),
+        content: const Text(
+          'Your sets have already been saved. Ready to wrap up?',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),

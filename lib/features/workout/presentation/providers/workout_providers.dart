@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gym_tracker/core/error/failures.dart';
 import 'package:gym_tracker/core/providers/database_providers.dart';
 import 'package:gym_tracker/features/workout/data/repositories/drift_set_log_repository.dart';
 import 'package:gym_tracker/features/workout/domain/repositories/set_log_repository.dart';
@@ -34,6 +35,13 @@ final saveSetProvider = Provider<SaveSetUseCase>((ref) {
 final calculateProgressProvider = Provider<CalculateProgressUseCase>((ref) {
   return const CalculateProgressUseCase();
 });
+
+/// Side-channel for surfacing [Failure]s from [ActiveWorkoutNotifier] to the UI.
+///
+/// The notifier writes a [Failure] here when [addSet] fails validation or
+/// encounters a DB error. The screen listens with [ref.listen] and shows a
+/// Snackbar via [SnackbarHelper]. Resets to null after being consumed.
+final workoutErrorProvider = StateProvider<Failure?>((ref) => null);
 
 // ── Screen Notifier ───────────────────────────────────────────────────────────
 
