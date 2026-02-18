@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gym_tracker/core/utils/weight_converter.dart';
+import 'package:gym_tracker/features/settings/domain/entities/app_settings.dart';
+import 'package:gym_tracker/features/settings/domain/entities/unit_system.dart';
+import 'package:gym_tracker/features/settings/presentation/providers/settings_providers.dart';
 import 'package:gym_tracker/features/workout/domain/entities/previous_performance.dart';
 import 'package:gym_tracker/features/workout/domain/entities/progress_status.dart';
 import 'package:gym_tracker/features/workout/presentation/state/active_workout_state.dart';
@@ -9,7 +14,11 @@ import 'package:gym_tracker/features/workout/presentation/state/active_workout_s
 ///
 /// This widget is purely presentational — it calls [onSave] when the user
 /// submits the form, and [onDelete] when the delete icon is tapped.
-class SetInputRow extends StatefulWidget {
+///
+/// Weight values are **always passed and received in kg** (matching the DB
+/// schema). The widget reads [settingsNotifierProvider] to convert displayed
+/// values to the user's preferred unit on the fly.
+class SetInputRow extends ConsumerStatefulWidget {
   const SetInputRow({
     super.key,
     required this.setNumber,
@@ -29,32 +38,29 @@ class SetInputRow extends StatefulWidget {
   final LoggedSet? loggedSet;
 
   /// Called with (weightKg, reps) when the user submits a new set.
+  /// The weight is always in **kg**, regardless of the display unit.
   final void Function(double weightKg, int reps) onSave;
 
   /// Called when the user taps the delete icon on a saved set.
   final VoidCallback onDelete;
 
   @override
-  State<SetInputRow> createState() => _SetInputRowState();
+  ConsumerState<SetInputRow> createState() => _SetInputRowState();
 }
 
-class _SetInputRowState extends State<SetInputRow> {
+class _SetInputRowState extends ConsumerState<SetInputRow> {
   final _weightController = TextEditingController();
   final _repsController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  /// The unit system active when the controllers were last populated.
+  UnitSystem? _lastUnit;
+
   @override
   void initState() {
     super.initState();
-    // Pre-fill with previous performance values for convenience
-    if (widget.loggedSet != null) {
-      _weightController.text = widget.loggedSet!.weightKg.toString();
-      _repsController.text = widget.loggedSet!.reps.toString();
-    } else if (widget.previousPerformance != null) {
-      final prev = widget.previousPerformance!.lastSet;
-      _weightController.text = prev.weightKg.toString();
-      _repsController.text = prev.reps.toString();
-    }
+    // Controllers are populated in the first build() call once we have
+    // the unit system from the provider.
   }
 
   @override
@@ -64,11 +70,27 @@ class _SetInputRowState extends State<SetInputRow> {
     super.dispose();
   }
 
-  void _submit() {
+  /// Populates the weight controller with the correct display value.
+  void _populateWeight(UnitSystem unit) {
+    if (widget.loggedSet != null) {
+      _weightController.text = WeightConverter.toDisplay(
+        widget.loggedSet!.weightKg,
+        unit,
+      ).toStringAsFixed(1);
+    } else if (widget.previousPerformance != null) {
+      _weightController.text = WeightConverter.toDisplay(
+        widget.previousPerformance!.lastSet.weightKg,
+        unit,
+      ).toStringAsFixed(1);
+    }
+  }
+
+  void _submit(UnitSystem unit) {
     if (!(_formKey.currentState?.validate() ?? false)) return;
-    final weight = double.tryParse(_weightController.text) ?? 0;
+    final displayWeight = double.tryParse(_weightController.text) ?? 0;
+    final weightKg = WeightConverter.toKg(displayWeight, unit);
     final reps = int.tryParse(_repsController.text) ?? 0;
-    widget.onSave(weight, reps);
+    widget.onSave(weightKg, reps);
   }
 
   @override
@@ -76,6 +98,22 @@ class _SetInputRowState extends State<SetInputRow> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final isSaved = widget.loggedSet != null;
+
+    // Use metric as default while the async settings load is in progress.
+    final settings =
+        ref.watch(settingsNotifierProvider).valueOrNull ?? const AppSettings();
+    final unit = settings.unitSystem;
+
+    // Re-populate controllers when the unit changes (e.g. user switches
+    // metric ↔ imperial in Settings while the workout screen is open).
+    if (_lastUnit != unit) {
+      _lastUnit = unit;
+      _repsController.text =
+          widget.loggedSet?.reps.toString() ??
+          widget.previousPerformance?.lastSet.reps.toString() ??
+          '';
+      _populateWeight(unit);
+    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
@@ -107,14 +145,16 @@ class _SetInputRowState extends State<SetInputRow> {
                   TextFormField(
                     controller: _weightController,
                     enabled: !isSaved,
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(
-                          RegExp(r'^\d*\.?\d{0,2}')),
+                        RegExp(r'^\d*\.?\d{0,2}'),
+                      ),
                     ],
                     decoration: InputDecoration(
-                      labelText: 'kg',
+                      labelText: WeightConverter.label(unit),
                       isDense: true,
                       border: const OutlineInputBorder(),
                       filled: isSaved,
@@ -127,13 +167,13 @@ class _SetInputRowState extends State<SetInputRow> {
                       if (double.parse(v) < 0) return '≥ 0';
                       return null;
                     },
-                    onFieldSubmitted: (_) => _submit(),
+                    onFieldSubmitted: (_) => _submit(unit),
                   ),
                   if (widget.previousPerformance != null)
                     Padding(
                       padding: const EdgeInsets.only(top: 2, left: 2),
                       child: Text(
-                        'Last: ${widget.previousPerformance!.lastSet.weightKg} kg',
+                        'Last: ${WeightConverter.format(widget.previousPerformance!.lastSet.weightKg, unit)}',
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: colorScheme.outline,
                         ),
@@ -154,9 +194,7 @@ class _SetInputRowState extends State<SetInputRow> {
                     controller: _repsController,
                     enabled: !isSaved,
                     keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     decoration: InputDecoration(
                       labelText: 'reps',
                       isDense: true,
@@ -171,7 +209,7 @@ class _SetInputRowState extends State<SetInputRow> {
                       if (n == null || n < 1) return '≥ 1';
                       return null;
                     },
-                    onFieldSubmitted: (_) => _submit(),
+                    onFieldSubmitted: (_) => _submit(unit),
                   ),
                   if (widget.previousPerformance != null)
                     Padding(
@@ -196,7 +234,7 @@ class _SetInputRowState extends State<SetInputRow> {
                 icon: const Icon(Icons.check_circle_outline),
                 color: colorScheme.primary,
                 tooltip: 'Log set',
-                onPressed: _submit,
+                onPressed: () => _submit(unit),
               ),
 
             // ── Delete (saved sets only) ──────────────────────────────────
@@ -229,35 +267,31 @@ class _ProgressBadge extends StatelessWidget {
 
     return switch (status!) {
       Progressed(:final deltaPercent) => _Badge(
-          icon: Icons.arrow_upward,
-          label: '+${(deltaPercent * 100).toStringAsFixed(1)}%',
-          color: Colors.green.shade600,
-        ),
+        icon: Icons.arrow_upward,
+        label: '+${(deltaPercent * 100).toStringAsFixed(1)}%',
+        color: Colors.green.shade600,
+      ),
       Regressed(:final deltaPercent) => _Badge(
-          icon: Icons.arrow_downward,
-          label: '${(deltaPercent * 100).toStringAsFixed(1)}%',
-          color: colorScheme.error,
-        ),
+        icon: Icons.arrow_downward,
+        label: '${(deltaPercent * 100).toStringAsFixed(1)}%',
+        color: colorScheme.error,
+      ),
       Same() => _Badge(
-          icon: Icons.remove,
-          label: 'Same',
-          color: colorScheme.outline,
-        ),
+        icon: Icons.remove,
+        label: 'Same',
+        color: colorScheme.outline,
+      ),
       FirstTime() => _Badge(
-          icon: Icons.star_outline,
-          label: 'New!',
-          color: colorScheme.tertiary,
-        ),
+        icon: Icons.star_outline,
+        label: 'New!',
+        color: colorScheme.tertiary,
+      ),
     };
   }
 }
 
 class _Badge extends StatelessWidget {
-  const _Badge({
-    required this.icon,
-    required this.label,
-    required this.color,
-  });
+  const _Badge({required this.icon, required this.label, required this.color});
 
   final IconData icon;
   final String label;

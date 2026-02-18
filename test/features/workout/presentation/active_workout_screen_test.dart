@@ -23,6 +23,8 @@ import 'package:gym_tracker/features/exercise/domain/entities/equipment_type.dar
 import 'package:gym_tracker/features/exercise/domain/entities/exercise.dart';
 import 'package:gym_tracker/features/exercise/domain/entities/muscle_group.dart';
 import 'package:gym_tracker/features/routine/domain/entities/split_type.dart';
+import 'package:gym_tracker/features/settings/domain/entities/app_settings.dart';
+import 'package:gym_tracker/features/settings/presentation/providers/settings_providers.dart';
 import 'package:gym_tracker/features/workout/domain/entities/previous_performance.dart';
 import 'package:gym_tracker/features/workout/domain/entities/progress_status.dart';
 import 'package:gym_tracker/features/workout/domain/entities/set_log.dart';
@@ -103,6 +105,9 @@ class FakeActiveWorkoutNotifier extends ActiveWorkoutNotifier {
 /// Override pattern for AsyncNotifierProvider.family.autoDispose in Riverpod 2.x:
 /// Use `activeWorkoutProvider.overrideWith(factory)` on the **family** itself,
 /// not on a specific instance. The factory closure captures [state].
+///
+/// We also override [settingsNotifierProvider] with the default metric settings
+/// so the test is deterministic regardless of SharedPreferences state.
 Widget buildScreen(ActiveWorkoutState state) {
   return ProviderScope(
     overrides: [
@@ -111,9 +116,17 @@ Widget buildScreen(ActiveWorkoutState state) {
       activeWorkoutProvider.overrideWith(
         () => FakeActiveWorkoutNotifier(state),
       ),
+      // Use default (metric) settings so weight labels are predictable.
+      settingsNotifierProvider.overrideWith(() => _FakeSettingsNotifier()),
     ],
     child: MaterialApp(home: ActiveWorkoutScreen(args: _args)),
   );
+}
+
+/// Fake SettingsNotifier that returns the default metric [AppSettings].
+class _FakeSettingsNotifier extends SettingsNotifier {
+  @override
+  Future<AppSettings> build() async => const AppSettings();
 }
 
 // ── Tests ─────────────────────────────────────────────────────────────────────

@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:gym_tracker/features/settings/presentation/providers/settings_providers.dart';
 import 'package:gym_tracker/features/workout/presentation/screens/split_selection_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
   runApp(
     // ProviderScope is required by Riverpod — it must wrap the entire app.
-    const ProviderScope(child: GymTrackerApp()),
+    ProviderScope(
+      overrides: [
+        // Inject the SharedPreferences instance so the rest of the provider
+        // graph can access it synchronously.
+        sharedPreferencesProvider.overrideWithValue(prefs),
+      ],
+      child: const GymTrackerApp(),
+    ),
   );
 }
 

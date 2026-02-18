@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gym_tracker/features/routine/domain/entities/split_type.dart';
+import 'package:gym_tracker/features/settings/presentation/screens/settings_screen.dart';
 import 'package:gym_tracker/features/workout/presentation/notifiers/active_workout_notifier.dart';
 import 'package:gym_tracker/features/workout/presentation/screens/active_workout_screen.dart';
 
@@ -10,7 +12,7 @@ import 'package:gym_tracker/features/workout/presentation/screens/active_workout
 ///
 /// TODO: Replace hardcoded exercise IDs with the active routine's split day
 /// once routine management is implemented.
-class SplitSelectionScreen extends StatelessWidget {
+class SplitSelectionScreen extends ConsumerWidget {
   const SplitSelectionScreen({super.key});
 
   // Placeholder exercise IDs — replace with real IDs from the active routine.
@@ -19,19 +21,11 @@ class SplitSelectionScreen extends StatelessWidget {
     'overhead-press',
     'tricep-pushdown',
   ];
-  static const _pullExercises = [
-    'barbell-row',
-    'lat-pulldown',
-    'bicep-curl',
-  ];
-  static const _legsExercises = [
-    'squat',
-    'romanian-deadlift',
-    'leg-press',
-  ];
+  static const _pullExercises = ['barbell-row', 'lat-pulldown', 'bicep-curl'];
+  static const _legsExercises = ['squat', 'romanian-deadlift', 'leg-press'];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
@@ -45,6 +39,18 @@ class SplitSelectionScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings_outlined),
+            tooltip: 'Settings',
+            onPressed:
+                () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const SettingsScreen(),
+                  ),
+                ),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -90,10 +96,7 @@ class SplitSelectionScreen extends StatelessWidget {
                       icon: Icons.arrow_downward_rounded,
                       description: 'Back · Biceps · Rear Delts',
                       gradient: LinearGradient(
-                        colors: [
-                          Colors.blue.shade400,
-                          Colors.indigo.shade600,
-                        ],
+                        colors: [Colors.blue.shade400, Colors.indigo.shade600],
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -103,10 +106,7 @@ class SplitSelectionScreen extends StatelessWidget {
                       icon: Icons.directions_run_rounded,
                       description: 'Quads · Hamstrings · Glutes · Calves',
                       gradient: LinearGradient(
-                        colors: [
-                          Colors.green.shade400,
-                          Colors.teal.shade600,
-                        ],
+                        colors: [Colors.green.shade400, Colors.teal.shade600],
                       ),
                     ),
                   ],
@@ -146,16 +146,18 @@ class _SplitCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         clipBehavior: Clip.antiAlias,
         child: InkWell(
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute<void>(
-              builder: (_) => ActiveWorkoutScreen(
-                args: ActiveWorkoutArgs(
-                  splitType: splitType,
-                  exerciseIds: exerciseIds,
+          onTap:
+              () => Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder:
+                      (_) => ActiveWorkoutScreen(
+                        args: ActiveWorkoutArgs(
+                          splitType: splitType,
+                          exerciseIds: exerciseIds,
+                        ),
+                      ),
                 ),
               ),
-            ),
-          ),
           child: Ink(
             decoration: BoxDecoration(gradient: gradient),
             child: Padding(
