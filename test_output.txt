@@ -1,0 +1,687 @@
+﻿00:00 +0: loading C:/Users/victo/gymTracker/test/core/utils/weight_converter_test.dart
+00:00 +0: C:/Users/victo/gymTracker/test/core/utils/weight_converter_test.dart: WeightConverter toDisplay returns kg unchanged for metric
+00:00 +1: C:/Users/victo/gymTracker/test/core/utils/weight_converter_test.dart: WeightConverter toDisplay converts kg to lbs for imperial
+00:00 +2: C:/Users/victo/gymTracker/test/core/utils/weight_converter_test.dart: WeightConverter toDisplay handles zero weight
+00:00 +3: C:/Users/victo/gymTracker/test/core/utils/weight_converter_test.dart: WeightConverter toKg returns display value unchanged for metric
+00:00 +4: C:/Users/victo/gymTracker/test/core/utils/weight_converter_test.dart: WeightConverter toKg converts lbs back to kg for imperial
+00:00 +5: C:/Users/victo/gymTracker/test/core/utils/weight_converter_test.dart: WeightConverter toKg round-trips: toKg(toDisplay(x)) Ôëê x
+00:00 +6: C:/Users/victo/gymTracker/test/core/utils/weight_converter_test.dart: WeightConverter label returns "kg" for metric
+00:00 +7: C:/Users/victo/gymTracker/test/core/utils/weight_converter_test.dart: WeightConverter label returns "lbs" for imperial
+00:00 +8: C:/Users/victo/gymTracker/test/core/utils/weight_converter_test.dart: WeightConverter format formats metric weight with one decimal and kg label
+00:00 +9: C:/Users/victo/gymTracker/test/core/utils/weight_converter_test.dart: WeightConverter format formats imperial weight with one decimal and lbs label
+00:00 +10: C:/Users/victo/gymTracker/test/core/utils/weight_converter_test.dart: WeightConverter format formats zero correctly
+00:00 +11: C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart: saveExercise / getExercises saves an exercise and retrieves it in the list
+00:00 +12: C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart: saveExercise / getExercises returns exercises ordered alphabetically by name
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart:50:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +13: C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart: getExerciseById returns the correct exercise when it exists
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart:50:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +14: C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart: getExerciseById returns NotFoundFailure for unknown id
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart:50:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +15: C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart: searchExercises returns matching exercises (case-insensitive)
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart:50:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +16: C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart: searchExercises returns empty list when no match
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart:50:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +17: C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart: getExercisesByMuscleGroup returns only exercises with the given primary muscle
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart:50:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +18: C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart: deleteExercise removes a custom exercise successfully
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart:50:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +19: C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart: deleteExercise returns ValidationFailure when deleting a built-in exercise
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart:50:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +20: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: saveSetLog / getSetLogsForSession saves a set log and retrieves it by session
+00:00 +20: C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart: deleteExercise returns NotFoundFailure when exercise does not exist
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart:50:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +21: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: saveSetLog / getSetLogsForSession saves a set log and retrieves it by session
+00:00 +22: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: saveSetLog / getSetLogsForSession returns only set logs belonging to the given session
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart:56:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +23: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: saveSetLog / getSetLogsForSession returns set logs ordered by set number ascending
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart:56:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +24: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: getLastSetForExercise returns the most recently completed set for an exercise
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart:56:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +25: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: getLastSetForExercise returns NotFoundFailure when no sets exist for the exercise
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart:56:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +26: C:/Users/victo/gymTracker/test/features/workout/domain/calculate_progress_use_case_test.dart: CalculateProgressUseCase returns FirstTime when previous is null
+00:00 +26: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: getSetLogsForExercise returns all sets for an exercise ordered by date descending
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart:56:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +27: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: getSetLogsForExercise returns all sets for an exercise ordered by date descending
+00:00 +28: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog removes the set log successfully
+00:00 +29: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog removes the set log successfully
+00:00 +30: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog removes the set log successfully
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart:56:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +31: C:/Users/victo/gymTracker/test/features/workout/domain/calculate_progress_use_case_test.dart: CalculateProgressUseCase returns Regressed when e1RM declines
+00:00 +32: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog returns NotFoundFailure when set log does not exist
+00:00 +33: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog returns NotFoundFailure when set log does not exist
+WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
+Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
+Here is the stacktrace from when the database was opened a second time:
+#0      GeneratedDatabase._handleInstantiated (package:drift/src/runtime/api/db_base.dart:96:30)
+#1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
+#2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
+#3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
+00:00 +34: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog returns NotFoundFailure when set log does not exist
+#4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
+#5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
+#6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart:56:16)
+#7      Declarer._runSetUps.<anonymous closure> (package:test_api/src/backend/declarer.dart:403:61)
+#8      Future.forEach.<anonymous closure> (dart:async/future.dart:674:26)
+#9      Future.doWhile.<anonymous closure> (dart:async/future.dart:732:26)
+#10     StackZoneSpecification._registerUnaryCallback.<anonymous closure>.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:36)
+#11     StackZoneSpecification._run (package:stack_trace/src/stack_zone_specification.dart:207:15)
+#12     StackZoneSpecification._registerUnaryCallback.<anonymous closure> (package:stack_trace/src/stack_zone_specification.dart:127:24)
+#13     _rootRunUnary (dart:async/zone.dart:1538:47)
+#14     _CustomZone.runUnary (dart:async/zone.dart:1429:19)
+#15     _CustomZone.runUnaryGuarded (dart:async/zone.dart:1329:7)
+#16     _CustomZone.bindUnaryCallbackGuarded.<anonymous closure> (dart:async/zone.dart:1367:26)
+#17     Future.doWhile (dart:async/future.dart:749:18)
+#18     Future.forEach (dart:async/future.dart:672:12)
+#19     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:403:18)
+#20     Declarer._runSetUps (package:test_api/src/backend/declarer.dart:401:40)
+#21     Declarer.test.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/declarer.dart:241:15)
+#22     _rootRun (dart:async/zone.dart:1525:13)
+#23     _CustomZone.run (dart:async/zone.dart:1422:19)
+#24     _runZoned (dart:async/zone.dart:2034:6)
+#25     runZoned (dart:async/zone.dart:1960:10)
+00:00 +35: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog returns NotFoundFailure when set log does not exist
+#26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
+#27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
+#28     _rootRun (dart:async/zone.dart:1525:13)
+#29     _CustomZone.run (dart:async/zone.dart:1422:19)
+#30     _runZoned (dart:async/zone.dart:2034:6)
+#31     runZoned (dart:async/zone.dart:1960:10)
+#32     Invoker._waitForOutstandingCallbacks (package:test_api/src/backend/invoker.dart:278:5)
+#33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
+<asynchronous suspension>
+This warning will only appear on debug builds.
+00:00 +36: C:/Users/victo/gymTracker/test/features/workout/domain/calculate_progress_use_case_test.dart: CalculateProgressUseCase handles previous weight of 0 without division by zero
+00:00 +37: C:/Users/victo/gymTracker/test/features/workout/domain/get_previous_performance_use_case_test.dart: GetPreviousPerformanceUseCase returns PreviousPerformance when repository returns a SetLog
+00:00 +38: C:/Users/victo/gymTracker/test/features/workout/domain/get_previous_performance_use_case_test.dart: GetPreviousPerformanceUseCase returns NotFoundFailure when exercise has never been logged
+00:00 +39: C:/Users/victo/gymTracker/test/features/workout/domain/get_previous_performance_use_case_test.dart: GetPreviousPerformanceUseCase returns DatabaseFailure when repository throws
+00:00 +40: C:/Users/victo/gymTracker/test/features/workout/domain/get_previous_performance_use_case_test.dart: GetPreviousPerformanceUseCase estimatedOneRepMax is null when reps == 1 (already a 1RM)
+00:01 +41: C:/Users/victo/gymTracker/test/features/workout/domain/save_set_use_case_test.dart: (setUpAll)
+00:01 +41: C:/Users/victo/gymTracker/test/features/workout/domain/save_set_use_case_test.dart: SaveSetUseCase ÔÇö validation returns Right(unit) for a valid set
+00:01 +42: C:/Users/victo/gymTracker/test/features/workout/domain/save_set_use_case_test.dart: SaveSetUseCase ÔÇö validation returns ValidationFailure when reps == 0
+00:01 +43: C:/Users/victo/gymTracker/test/features/workout/domain/save_set_use_case_test.dart: SaveSetUseCase ÔÇö validation returns ValidationFailure when weightKg is negative
+00:01 +44: C:/Users/victo/gymTracker/test/features/workout/domain/save_set_use_case_test.dart: SaveSetUseCase ÔÇö validation returns ValidationFailure when rpe is above 10
+00:01 +45: C:/Users/victo/gymTracker/test/features/workout/domain/save_set_use_case_test.dart: SaveSetUseCase ÔÇö validation returns ValidationFailure when rpe is below 1
+00:01 +46: C:/Users/victo/gymTracker/test/features/workout/domain/save_set_use_case_test.dart: SaveSetUseCase ÔÇö validation accepts rpe == 1 (lower boundary)
+00:01 +47: C:/Users/victo/gymTracker/test/features/workout/domain/save_set_use_case_test.dart: SaveSetUseCase ÔÇö validation accepts rpe == 10 (upper boundary)
+00:01 +48: C:/Users/victo/gymTracker/test/features/workout/domain/save_set_use_case_test.dart: SaveSetUseCase ÔÇö validation accepts weightKg == 0 (bodyweight exercise)
+00:01 +49: C:/Users/victo/gymTracker/test/features/workout/domain/save_set_use_case_test.dart: SaveSetUseCase ÔÇö repository errors propagates DatabaseFailure from repository
+00:01 +50: C:/Users/victo/gymTracker/test/features/workout/domain/save_set_use_case_test.dart: (tearDownAll)
+00:01 +50: C:/Users/victo/gymTracker/test/features/workout/presentation/active_workout_screen_test.dart: ActiveWorkoutScreen ÔÇö progress badge display shows Ôû▓ icon and percentage when user progressed
+00:02 +51: C:/Users/victo/gymTracker/test/features/workout/presentation/active_workout_screen_test.dart: ActiveWorkoutScreen ÔÇö progress badge display shows Ôû▓ icon and percentage when user progressed
+00:02 +52: C:/Users/victo/gymTracker/test/features/workout/presentation/active_workout_screen_test.dart: ActiveWorkoutScreen ÔÇö progress badge display shows Ôû╝ icon when user regressed
+00:02 +53: C:/Users/victo/gymTracker/test/features/workout/presentation/active_workout_screen_test.dart: ActiveWorkoutScreen ÔÇö progress badge display shows = icon when performance is the same
+00:02 +54: C:/Users/victo/gymTracker/test/features/workout/presentation/active_workout_screen_test.dart: ActiveWorkoutScreen ÔÇö progress badge display shows "New!" text when there is no previous performance
+00:02 +55: C:/Users/victo/gymTracker/test/features/workout/presentation/active_workout_screen_test.dart: ActiveWorkoutScreen ÔÇö progress badge display shows "Last: X kg ├ù N" hint text when previous performance exists
+00:02 +56: C:/Users/victo/gymTracker/test/features/workout/presentation/active_workout_screen_test.dart: ActiveWorkoutScreen ÔÇö progress badge display shows error view when state is error
+00:02 +57: All tests passed!

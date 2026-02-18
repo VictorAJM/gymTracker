@@ -14,15 +14,15 @@ class Routines extends Table {
 }
 
 /// Drift table definition for [SplitDay] value objects.
+///
+/// Note: the old `exercise_ids` TEXT column still exists in SQLite (from v1)
+/// but is no longer mapped here. Exercises are now stored in [RoutineExercises].
 @DataClassName('SplitDayRow')
 class SplitDays extends Table {
   TextColumn get id => text()();
   TextColumn get routineId => text()();
   IntColumn get dayOfWeek => integer()(); // 1 = Monday … 7 = Sunday
   TextColumn get splitType => text().map(const SplitTypeConverter())();
-  TextColumn get exerciseIds => text()
-      .map(const StringListConverter())
-      .withDefault(const Constant('[]'))();
 
   @override
   Set<Column> get primaryKey => {id};

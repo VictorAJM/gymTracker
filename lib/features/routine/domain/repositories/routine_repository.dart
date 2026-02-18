@@ -1,5 +1,6 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:gym_tracker/core/error/failures.dart';
+import 'package:gym_tracker/features/exercise/domain/entities/exercise.dart';
 import 'package:gym_tracker/features/routine/domain/entities/routine.dart';
 
 /// Abstract contract for all routine persistence operations.
@@ -25,4 +26,13 @@ abstract interface class RoutineRepository {
 
   /// Permanently removes the routine with [id].
   Future<Either<Failure, Unit>> deleteRoutine(String id);
+
+  /// Atomically replaces the exercise list for the split day identified by
+  /// [splitDayId]. The order of [exercises] is preserved.
+  ///
+  /// Returns [NotFoundFailure] if [splitDayId] does not exist.
+  Future<Either<Failure, Unit>> updateRoutineExercises(
+    String splitDayId,
+    List<Exercise> exercises,
+  );
 }

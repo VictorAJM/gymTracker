@@ -12,67 +12,72 @@ part of 'active_workout_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
+);
 
 /// @nodoc
 mixin _$ActiveWorkoutState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ExerciseEntry> exercises,
-            String? expandedExerciseId, String sessionId)
-        loaded,
+    required TResult Function(
+      List<ExerciseEntry> exercises,
+      String? expandedExerciseId,
+      String sessionId,
+    )
+    loaded,
     required TResult Function() loading,
     required TResult Function(String message) error,
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ExerciseEntry> exercises, String? expandedExerciseId,
-            String sessionId)?
-        loaded,
+    TResult? Function(
+      List<ExerciseEntry> exercises,
+      String? expandedExerciseId,
+      String sessionId,
+    )?
+    loaded,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ExerciseEntry> exercises, String? expandedExerciseId,
-            String sessionId)?
-        loaded,
+    TResult Function(
+      List<ExerciseEntry> exercises,
+      String? expandedExerciseId,
+      String sessionId,
+    )?
+    loaded,
     TResult Function()? loading,
     TResult Function(String message)? error,
     required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ActiveWorkoutLoaded value) loaded,
     required TResult Function(ActiveWorkoutLoading value) loading,
     required TResult Function(ActiveWorkoutError value) error,
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(ActiveWorkoutLoaded value)? loaded,
     TResult? Function(ActiveWorkoutLoading value)? loading,
     TResult? Function(ActiveWorkoutError value)? error,
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ActiveWorkoutLoaded value)? loaded,
     TResult Function(ActiveWorkoutLoading value)? loading,
     TResult Function(ActiveWorkoutError value)? error,
     required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
+  }) => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ActiveWorkoutStateCopyWith<$Res> {
   factory $ActiveWorkoutStateCopyWith(
-          ActiveWorkoutState value, $Res Function(ActiveWorkoutState) then) =
-      _$ActiveWorkoutStateCopyWithImpl<$Res, ActiveWorkoutState>;
+    ActiveWorkoutState value,
+    $Res Function(ActiveWorkoutState) then,
+  ) = _$ActiveWorkoutStateCopyWithImpl<$Res, ActiveWorkoutState>;
 }
 
 /// @nodoc
@@ -91,23 +96,26 @@ class _$ActiveWorkoutStateCopyWithImpl<$Res, $Val extends ActiveWorkoutState>
 
 /// @nodoc
 abstract class _$$ActiveWorkoutLoadedImplCopyWith<$Res> {
-  factory _$$ActiveWorkoutLoadedImplCopyWith(_$ActiveWorkoutLoadedImpl value,
-          $Res Function(_$ActiveWorkoutLoadedImpl) then) =
-      __$$ActiveWorkoutLoadedImplCopyWithImpl<$Res>;
+  factory _$$ActiveWorkoutLoadedImplCopyWith(
+    _$ActiveWorkoutLoadedImpl value,
+    $Res Function(_$ActiveWorkoutLoadedImpl) then,
+  ) = __$$ActiveWorkoutLoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call(
-      {List<ExerciseEntry> exercises,
-      String? expandedExerciseId,
-      String sessionId});
+  $Res call({
+    List<ExerciseEntry> exercises,
+    String? expandedExerciseId,
+    String sessionId,
+  });
 }
 
 /// @nodoc
 class __$$ActiveWorkoutLoadedImplCopyWithImpl<$Res>
     extends _$ActiveWorkoutStateCopyWithImpl<$Res, _$ActiveWorkoutLoadedImpl>
     implements _$$ActiveWorkoutLoadedImplCopyWith<$Res> {
-  __$$ActiveWorkoutLoadedImplCopyWithImpl(_$ActiveWorkoutLoadedImpl _value,
-      $Res Function(_$ActiveWorkoutLoadedImpl) _then)
-      : super(_value, _then);
+  __$$ActiveWorkoutLoadedImplCopyWithImpl(
+    _$ActiveWorkoutLoadedImpl _value,
+    $Res Function(_$ActiveWorkoutLoadedImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of ActiveWorkoutState
   /// with the given fields replaced by the non-null parameter values.
@@ -118,31 +126,36 @@ class __$$ActiveWorkoutLoadedImplCopyWithImpl<$Res>
     Object? expandedExerciseId = freezed,
     Object? sessionId = null,
   }) {
-    return _then(_$ActiveWorkoutLoadedImpl(
-      exercises: null == exercises
-          ? _value._exercises
-          : exercises // ignore: cast_nullable_to_non_nullable
-              as List<ExerciseEntry>,
-      expandedExerciseId: freezed == expandedExerciseId
-          ? _value.expandedExerciseId
-          : expandedExerciseId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      sessionId: null == sessionId
-          ? _value.sessionId
-          : sessionId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+    return _then(
+      _$ActiveWorkoutLoadedImpl(
+        exercises:
+            null == exercises
+                ? _value._exercises
+                : exercises // ignore: cast_nullable_to_non_nullable
+                    as List<ExerciseEntry>,
+        expandedExerciseId:
+            freezed == expandedExerciseId
+                ? _value.expandedExerciseId
+                : expandedExerciseId // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        sessionId:
+            null == sessionId
+                ? _value.sessionId
+                : sessionId // ignore: cast_nullable_to_non_nullable
+                    as String,
+      ),
+    );
   }
 }
 
 /// @nodoc
 
 class _$ActiveWorkoutLoadedImpl implements ActiveWorkoutLoaded {
-  const _$ActiveWorkoutLoadedImpl(
-      {required final List<ExerciseEntry> exercises,
-      required this.expandedExerciseId,
-      required this.sessionId})
-      : _exercises = exercises;
+  const _$ActiveWorkoutLoadedImpl({
+    required final List<ExerciseEntry> exercises,
+    required this.expandedExerciseId,
+    required this.sessionId,
+  }) : _exercises = exercises;
 
   final List<ExerciseEntry> _exercises;
   @override
@@ -170,8 +183,10 @@ class _$ActiveWorkoutLoadedImpl implements ActiveWorkoutLoaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ActiveWorkoutLoadedImpl &&
-            const DeepCollectionEquality()
-                .equals(other._exercises, _exercises) &&
+            const DeepCollectionEquality().equals(
+              other._exercises,
+              _exercises,
+            ) &&
             (identical(other.expandedExerciseId, expandedExerciseId) ||
                 other.expandedExerciseId == expandedExerciseId) &&
             (identical(other.sessionId, sessionId) ||
@@ -180,10 +195,11 @@ class _$ActiveWorkoutLoadedImpl implements ActiveWorkoutLoaded {
 
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_exercises),
-      expandedExerciseId,
-      sessionId);
+    runtimeType,
+    const DeepCollectionEquality().hash(_exercises),
+    expandedExerciseId,
+    sessionId,
+  );
 
   /// Create a copy of ActiveWorkoutState
   /// with the given fields replaced by the non-null parameter values.
@@ -192,14 +208,19 @@ class _$ActiveWorkoutLoadedImpl implements ActiveWorkoutLoaded {
   @pragma('vm:prefer-inline')
   _$$ActiveWorkoutLoadedImplCopyWith<_$ActiveWorkoutLoadedImpl> get copyWith =>
       __$$ActiveWorkoutLoadedImplCopyWithImpl<_$ActiveWorkoutLoadedImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ExerciseEntry> exercises,
-            String? expandedExerciseId, String sessionId)
-        loaded,
+    required TResult Function(
+      List<ExerciseEntry> exercises,
+      String? expandedExerciseId,
+      String sessionId,
+    )
+    loaded,
     required TResult Function() loading,
     required TResult Function(String message) error,
   }) {
@@ -209,9 +230,12 @@ class _$ActiveWorkoutLoadedImpl implements ActiveWorkoutLoaded {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ExerciseEntry> exercises, String? expandedExerciseId,
-            String sessionId)?
-        loaded,
+    TResult? Function(
+      List<ExerciseEntry> exercises,
+      String? expandedExerciseId,
+      String sessionId,
+    )?
+    loaded,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
   }) {
@@ -221,9 +245,12 @@ class _$ActiveWorkoutLoadedImpl implements ActiveWorkoutLoaded {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ExerciseEntry> exercises, String? expandedExerciseId,
-            String sessionId)?
-        loaded,
+    TResult Function(
+      List<ExerciseEntry> exercises,
+      String? expandedExerciseId,
+      String sessionId,
+    )?
+    loaded,
     TResult Function()? loading,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -270,10 +297,11 @@ class _$ActiveWorkoutLoadedImpl implements ActiveWorkoutLoaded {
 }
 
 abstract class ActiveWorkoutLoaded implements ActiveWorkoutState {
-  const factory ActiveWorkoutLoaded(
-      {required final List<ExerciseEntry> exercises,
-      required final String? expandedExerciseId,
-      required final String sessionId}) = _$ActiveWorkoutLoadedImpl;
+  const factory ActiveWorkoutLoaded({
+    required final List<ExerciseEntry> exercises,
+    required final String? expandedExerciseId,
+    required final String sessionId,
+  }) = _$ActiveWorkoutLoadedImpl;
 
   List<ExerciseEntry> get exercises;
 
@@ -292,18 +320,20 @@ abstract class ActiveWorkoutLoaded implements ActiveWorkoutState {
 
 /// @nodoc
 abstract class _$$ActiveWorkoutLoadingImplCopyWith<$Res> {
-  factory _$$ActiveWorkoutLoadingImplCopyWith(_$ActiveWorkoutLoadingImpl value,
-          $Res Function(_$ActiveWorkoutLoadingImpl) then) =
-      __$$ActiveWorkoutLoadingImplCopyWithImpl<$Res>;
+  factory _$$ActiveWorkoutLoadingImplCopyWith(
+    _$ActiveWorkoutLoadingImpl value,
+    $Res Function(_$ActiveWorkoutLoadingImpl) then,
+  ) = __$$ActiveWorkoutLoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
 class __$$ActiveWorkoutLoadingImplCopyWithImpl<$Res>
     extends _$ActiveWorkoutStateCopyWithImpl<$Res, _$ActiveWorkoutLoadingImpl>
     implements _$$ActiveWorkoutLoadingImplCopyWith<$Res> {
-  __$$ActiveWorkoutLoadingImplCopyWithImpl(_$ActiveWorkoutLoadingImpl _value,
-      $Res Function(_$ActiveWorkoutLoadingImpl) _then)
-      : super(_value, _then);
+  __$$ActiveWorkoutLoadingImplCopyWithImpl(
+    _$ActiveWorkoutLoadingImpl _value,
+    $Res Function(_$ActiveWorkoutLoadingImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of ActiveWorkoutState
   /// with the given fields replaced by the non-null parameter values.
@@ -332,9 +362,12 @@ class _$ActiveWorkoutLoadingImpl implements ActiveWorkoutLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ExerciseEntry> exercises,
-            String? expandedExerciseId, String sessionId)
-        loaded,
+    required TResult Function(
+      List<ExerciseEntry> exercises,
+      String? expandedExerciseId,
+      String sessionId,
+    )
+    loaded,
     required TResult Function() loading,
     required TResult Function(String message) error,
   }) {
@@ -344,9 +377,12 @@ class _$ActiveWorkoutLoadingImpl implements ActiveWorkoutLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ExerciseEntry> exercises, String? expandedExerciseId,
-            String sessionId)?
-        loaded,
+    TResult? Function(
+      List<ExerciseEntry> exercises,
+      String? expandedExerciseId,
+      String sessionId,
+    )?
+    loaded,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
   }) {
@@ -356,9 +392,12 @@ class _$ActiveWorkoutLoadingImpl implements ActiveWorkoutLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ExerciseEntry> exercises, String? expandedExerciseId,
-            String sessionId)?
-        loaded,
+    TResult Function(
+      List<ExerciseEntry> exercises,
+      String? expandedExerciseId,
+      String sessionId,
+    )?
+    loaded,
     TResult Function()? loading,
     TResult Function(String message)? error,
     required TResult orElse(),
@@ -410,9 +449,10 @@ abstract class ActiveWorkoutLoading implements ActiveWorkoutState {
 
 /// @nodoc
 abstract class _$$ActiveWorkoutErrorImplCopyWith<$Res> {
-  factory _$$ActiveWorkoutErrorImplCopyWith(_$ActiveWorkoutErrorImpl value,
-          $Res Function(_$ActiveWorkoutErrorImpl) then) =
-      __$$ActiveWorkoutErrorImplCopyWithImpl<$Res>;
+  factory _$$ActiveWorkoutErrorImplCopyWith(
+    _$ActiveWorkoutErrorImpl value,
+    $Res Function(_$ActiveWorkoutErrorImpl) then,
+  ) = __$$ActiveWorkoutErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String message});
 }
@@ -421,23 +461,24 @@ abstract class _$$ActiveWorkoutErrorImplCopyWith<$Res> {
 class __$$ActiveWorkoutErrorImplCopyWithImpl<$Res>
     extends _$ActiveWorkoutStateCopyWithImpl<$Res, _$ActiveWorkoutErrorImpl>
     implements _$$ActiveWorkoutErrorImplCopyWith<$Res> {
-  __$$ActiveWorkoutErrorImplCopyWithImpl(_$ActiveWorkoutErrorImpl _value,
-      $Res Function(_$ActiveWorkoutErrorImpl) _then)
-      : super(_value, _then);
+  __$$ActiveWorkoutErrorImplCopyWithImpl(
+    _$ActiveWorkoutErrorImpl _value,
+    $Res Function(_$ActiveWorkoutErrorImpl) _then,
+  ) : super(_value, _then);
 
   /// Create a copy of ActiveWorkoutState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({
-    Object? message = null,
-  }) {
-    return _then(_$ActiveWorkoutErrorImpl(
-      null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+  $Res call({Object? message = null}) {
+    return _then(
+      _$ActiveWorkoutErrorImpl(
+        null == message
+            ? _value.message
+            : message // ignore: cast_nullable_to_non_nullable
+                as String,
+      ),
+    );
   }
 }
 
@@ -472,14 +513,19 @@ class _$ActiveWorkoutErrorImpl implements ActiveWorkoutError {
   @pragma('vm:prefer-inline')
   _$$ActiveWorkoutErrorImplCopyWith<_$ActiveWorkoutErrorImpl> get copyWith =>
       __$$ActiveWorkoutErrorImplCopyWithImpl<_$ActiveWorkoutErrorImpl>(
-          this, _$identity);
+        this,
+        _$identity,
+      );
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<ExerciseEntry> exercises,
-            String? expandedExerciseId, String sessionId)
-        loaded,
+    required TResult Function(
+      List<ExerciseEntry> exercises,
+      String? expandedExerciseId,
+      String sessionId,
+    )
+    loaded,
     required TResult Function() loading,
     required TResult Function(String message) error,
   }) {
@@ -489,9 +535,12 @@ class _$ActiveWorkoutErrorImpl implements ActiveWorkoutError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<ExerciseEntry> exercises, String? expandedExerciseId,
-            String sessionId)?
-        loaded,
+    TResult? Function(
+      List<ExerciseEntry> exercises,
+      String? expandedExerciseId,
+      String sessionId,
+    )?
+    loaded,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
   }) {
@@ -501,9 +550,12 @@ class _$ActiveWorkoutErrorImpl implements ActiveWorkoutError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<ExerciseEntry> exercises, String? expandedExerciseId,
-            String sessionId)?
-        loaded,
+    TResult Function(
+      List<ExerciseEntry> exercises,
+      String? expandedExerciseId,
+      String sessionId,
+    )?
+    loaded,
     TResult Function()? loading,
     TResult Function(String message)? error,
     required TResult orElse(),

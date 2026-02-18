@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gym_tracker/core/database/app_database.dart';
+import 'package:gym_tracker/features/routine/data/datasources/local/routine_exercise_dao.dart';
 import 'package:gym_tracker/features/workout/data/datasources/local/set_log_dao.dart';
 
 /// Provides the singleton [AppDatabase] instance.
@@ -15,4 +16,9 @@ final appDatabaseProvider = Provider<AppDatabase>((ref) {
 /// Provides the [SetLogDao] from the singleton database.
 final setLogDaoProvider = Provider<SetLogDao>((ref) {
   return ref.watch(appDatabaseProvider).setLogDao;
+});
+
+/// Provides the [RoutineExerciseDao] from the singleton database.
+final routineExerciseDaoProvider = Provider<RoutineExerciseDao>((ref) {
+  return ref.watch(appDatabaseProvider).routineExerciseDao;
 });
