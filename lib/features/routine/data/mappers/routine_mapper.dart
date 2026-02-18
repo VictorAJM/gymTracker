@@ -7,6 +7,7 @@ import 'package:gym_tracker/features/routine/domain/entities/split_day.dart';
 extension SplitDayRowMapper on SplitDayRow {
   /// [exercises] must be fetched separately from [RoutineExercises].
   SplitDay toDomain(List<Exercise> exercises) => SplitDay(
+    id: id,
     dayOfWeek: dayOfWeek,
     splitType: splitType,
     exercises: exercises,
@@ -15,7 +16,6 @@ extension SplitDayRowMapper on SplitDayRow {
 
 extension SplitDayDomainMapper on SplitDay {
   SplitDaysCompanion toCompanion({
-    required String id,
     required String routineId,
   }) => SplitDaysCompanion(
     id: Value(id),

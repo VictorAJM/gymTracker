@@ -95,17 +95,16 @@ class DriftRoutineRepository implements RoutineRepository {
       await _routineDao.deleteSplitDaysForRoutine(routine.id);
 
       for (final day in routine.days) {
-        final splitDayId = _uuid.v4();
         await _routineDao.upsertSplitDay(
-          day.toCompanion(id: splitDayId, routineId: routine.id),
+          day.toCompanion(routineId: routine.id),
         );
 
         // Write the ordered exercise list to the junction table.
-        await _exerciseDao.replaceExercisesForSplitDay(splitDayId, [
+        await _exerciseDao.replaceExercisesForSplitDay(day.id, [
           for (var i = 0; i < day.exercises.length; i++)
             RoutineExercisesCompanion(
               id: Value(_uuid.v4()),
-              splitDayId: Value(splitDayId),
+              splitDayId: Value(day.id),
               exerciseId: Value(day.exercises[i].id),
               orderIndex: Value(i),
             ),

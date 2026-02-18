@@ -331,7 +331,6 @@ Here is the stacktrace from when the database was opened a second time:
 #33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
 <asynchronous suspension>
 This warning will only appear on debug builds.
-00:00 +20: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: saveSetLog / getSetLogsForSession saves a set log and retrieves it by session
 00:00 +20: C:/Users/victo/gymTracker/test/features/exercise/data/drift_exercise_repository_test.dart: deleteExercise returns NotFoundFailure when exercise does not exist
 WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
 Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
@@ -533,7 +532,6 @@ Here is the stacktrace from when the database was opened a second time:
 #33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
 <asynchronous suspension>
 This warning will only appear on debug builds.
-00:00 +26: C:/Users/victo/gymTracker/test/features/workout/domain/calculate_progress_use_case_test.dart: CalculateProgressUseCase returns FirstTime when previous is null
 00:00 +26: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: getSetLogsForExercise returns all sets for an exercise ordered by date descending
 WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
 Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
@@ -574,10 +572,7 @@ Here is the stacktrace from when the database was opened a second time:
 #33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
 <asynchronous suspension>
 This warning will only appear on debug builds.
-00:00 +27: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: getSetLogsForExercise returns all sets for an exercise ordered by date descending
-00:00 +28: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog removes the set log successfully
-00:00 +29: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog removes the set log successfully
-00:00 +30: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog removes the set log successfully
+00:00 +27: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog removes the set log successfully
 WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
 Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
 Here is the stacktrace from when the database was opened a second time:
@@ -617,9 +612,7 @@ Here is the stacktrace from when the database was opened a second time:
 #33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
 <asynchronous suspension>
 This warning will only appear on debug builds.
-00:00 +31: C:/Users/victo/gymTracker/test/features/workout/domain/calculate_progress_use_case_test.dart: CalculateProgressUseCase returns Regressed when e1RM declines
-00:00 +32: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog returns NotFoundFailure when set log does not exist
-00:00 +33: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog returns NotFoundFailure when set log does not exist
+00:00 +28: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog returns NotFoundFailure when set log does not exist
 WARNING (drift): It looks like you've created the database class AppDatabase multiple times. When these two databases use the same QueryExecutor, race conditions will occur and might corrupt the database. 
 Try to follow the advice at https://drift.simonbinder.eu/faq/#using-the-database or, if you know what you're doing, set driftRuntimeOptions.dontWarnAboutMultipleDatabases = true
 Here is the stacktrace from when the database was opened a second time:
@@ -627,7 +620,6 @@ Here is the stacktrace from when the database was opened a second time:
 #1      GeneratedDatabase._whenConstructed (package:drift/src/runtime/api/db_base.dart:73:12)
 #2      new GeneratedDatabase (package:drift/src/runtime/api/db_base.dart:64:5)
 #3      new _$AppDatabase (package:gym_tracker/core/database/app_database.g.dart:2446:36)
-00:00 +34: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog returns NotFoundFailure when set log does not exist
 #4      new AppDatabase.forTesting (package:gym_tracker/core/database/app_database.dart)
 #5      createTestDatabase (file:///C:/Users/victo/gymTracker/test/helpers/test_database.dart:8:17)
 #6      main.<anonymous closure> (file:///C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart:56:16)
@@ -650,7 +642,6 @@ Here is the stacktrace from when the database was opened a second time:
 #23     _CustomZone.run (dart:async/zone.dart:1422:19)
 #24     _runZoned (dart:async/zone.dart:2034:6)
 #25     runZoned (dart:async/zone.dart:1960:10)
-00:00 +35: C:/Users/victo/gymTracker/test/features/workout/data/drift_set_log_repository_test.dart: deleteSetLog returns NotFoundFailure when set log does not exist
 #26     Declarer.test.<anonymous closure> (package:test_api/src/backend/declarer.dart:240:13)
 #27     Invoker._waitForOutstandingCallbacks.<anonymous closure> (package:test_api/src/backend/invoker.dart:282:17)
 #28     _rootRun (dart:async/zone.dart:1525:13)
@@ -661,6 +652,13 @@ Here is the stacktrace from when the database was opened a second time:
 #33     Invoker._onRun.<anonymous closure>.<anonymous closure>.<anonymous closure> (package:test_api/src/backend/invoker.dart:418:17)
 <asynchronous suspension>
 This warning will only appear on debug builds.
+00:00 +29: C:/Users/victo/gymTracker/test/features/workout/domain/calculate_progress_use_case_test.dart: CalculateProgressUseCase returns FirstTime when previous is null
+00:00 +30: C:/Users/victo/gymTracker/test/features/workout/domain/calculate_progress_use_case_test.dart: CalculateProgressUseCase returns Progressed when e1RM improves
+00:00 +31: C:/Users/victo/gymTracker/test/features/workout/domain/calculate_progress_use_case_test.dart: CalculateProgressUseCase returns Progressed when same weight but more reps
+00:00 +32: C:/Users/victo/gymTracker/test/features/workout/domain/calculate_progress_use_case_test.dart: CalculateProgressUseCase returns Regressed when e1RM declines
+00:00 +33: C:/Users/victo/gymTracker/test/features/workout/domain/calculate_progress_use_case_test.dart: CalculateProgressUseCase returns Same when weight and reps are identical
+00:00 +34: C:/Users/victo/gymTracker/test/features/workout/domain/calculate_progress_use_case_test.dart: CalculateProgressUseCase compares raw weight when both sets have reps == 1
+00:00 +35: C:/Users/victo/gymTracker/test/features/workout/domain/calculate_progress_use_case_test.dart: CalculateProgressUseCase 1% tolerance: classifies 0.5% improvement as Same
 00:00 +36: C:/Users/victo/gymTracker/test/features/workout/domain/calculate_progress_use_case_test.dart: CalculateProgressUseCase handles previous weight of 0 without division by zero
 00:00 +37: C:/Users/victo/gymTracker/test/features/workout/domain/get_previous_performance_use_case_test.dart: GetPreviousPerformanceUseCase returns PreviousPerformance when repository returns a SetLog
 00:00 +38: C:/Users/victo/gymTracker/test/features/workout/domain/get_previous_performance_use_case_test.dart: GetPreviousPerformanceUseCase returns NotFoundFailure when exercise has never been logged
@@ -678,7 +676,7 @@ This warning will only appear on debug builds.
 00:01 +49: C:/Users/victo/gymTracker/test/features/workout/domain/save_set_use_case_test.dart: SaveSetUseCase ÔÇö repository errors propagates DatabaseFailure from repository
 00:01 +50: C:/Users/victo/gymTracker/test/features/workout/domain/save_set_use_case_test.dart: (tearDownAll)
 00:01 +50: C:/Users/victo/gymTracker/test/features/workout/presentation/active_workout_screen_test.dart: ActiveWorkoutScreen ÔÇö progress badge display shows Ôû▓ icon and percentage when user progressed
-00:02 +51: C:/Users/victo/gymTracker/test/features/workout/presentation/active_workout_screen_test.dart: ActiveWorkoutScreen ÔÇö progress badge display shows Ôû▓ icon and percentage when user progressed
+00:02 +51: C:/Users/victo/gymTracker/test/widget_test.dart: GymTrackerApp smoke test
 00:02 +52: C:/Users/victo/gymTracker/test/features/workout/presentation/active_workout_screen_test.dart: ActiveWorkoutScreen ÔÇö progress badge display shows Ôû╝ icon when user regressed
 00:02 +53: C:/Users/victo/gymTracker/test/features/workout/presentation/active_workout_screen_test.dart: ActiveWorkoutScreen ÔÇö progress badge display shows = icon when performance is the same
 00:02 +54: C:/Users/victo/gymTracker/test/features/workout/presentation/active_workout_screen_test.dart: ActiveWorkoutScreen ÔÇö progress badge display shows "New!" text when there is no previous performance
