@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:gym_tracker/core/error/failures.dart';
+import 'package:gym_tracker/features/workout/domain/entities/set_log.dart';
 import 'package:gym_tracker/features/workout/domain/repositories/set_log_repository.dart';
 import 'package:gym_tracker/features/workout/domain/usecases/save_set.dart';
 import 'package:mocktail/mocktail.dart';
@@ -28,6 +29,20 @@ void main() {
         completedAt: ts,
         rpe: rpe,
       );
+
+  setUpAll(() {
+    registerFallbackValue(
+      SetLog(
+        id: 'fallback',
+        workoutSessionId: 'session-fallback',
+        exerciseId: 'exercise-fallback',
+        setNumber: 1,
+        weightKg: 0,
+        reps: 1,
+        completedAt: DateTime(2024),
+      ),
+    );
+  });
 
   setUp(() {
     mockRepo = MockSetLogRepository();

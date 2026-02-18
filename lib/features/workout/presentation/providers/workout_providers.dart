@@ -5,6 +5,8 @@ import 'package:gym_tracker/features/workout/domain/repositories/set_log_reposit
 import 'package:gym_tracker/features/workout/domain/usecases/calculate_progress.dart';
 import 'package:gym_tracker/features/workout/domain/usecases/get_previous_performance.dart';
 import 'package:gym_tracker/features/workout/domain/usecases/save_set.dart';
+import 'package:gym_tracker/features/workout/presentation/notifiers/active_workout_notifier.dart';
+import 'package:gym_tracker/features/workout/presentation/state/active_workout_state.dart';
 
 // ── Repository ───────────────────────────────────────────────────────────────
 
@@ -18,39 +20,31 @@ final setLogRepositoryProvider = Provider<SetLogRepository>((ref) {
 // ── Use Cases ────────────────────────────────────────────────────────────────
 
 /// Fetches the most recent logged set for a given exercise.
-///
-/// Usage:
-/// ```dart
-/// final useCase = ref.read(getPreviousPerformanceProvider);
-/// final result = await useCase('exercise-id');
-/// ```
 final getPreviousPerformanceProvider =
     Provider<GetPreviousPerformanceUseCase>((ref) {
   return GetPreviousPerformanceUseCase(ref.watch(setLogRepositoryProvider));
 });
 
 /// Validates and persists a new [SetLog].
-///
-/// Usage:
-/// ```dart
-/// final useCase = ref.read(saveSetProvider);
-/// final result = await useCase(SaveSetParams(...));
-/// ```
 final saveSetProvider = Provider<SaveSetUseCase>((ref) {
   return SaveSetUseCase(ref.watch(setLogRepositoryProvider));
 });
 
 /// Compares a current set against a previous one and returns a [ProgressStatus].
-///
-/// This use case is pure — no repository dependency. The default tolerance
-/// is ±1%; override the provider to change it:
-/// ```dart
-/// overrides: [
-///   calculateProgressProvider.overrideWithValue(
-///     CalculateProgressUseCase(tolerancePercent: 0.05),
-///   ),
-/// ]
-/// ```
 final calculateProgressProvider = Provider<CalculateProgressUseCase>((ref) {
   return const CalculateProgressUseCase();
 });
+
+// ── Screen Notifier ───────────────────────────────────────────────────────────
+
+/// Drives the Active Workout screen.
+///
+/// Usage:
+/// ```dart
+/// final args = ActiveWorkoutArgs(splitType: SplitType.push, exerciseIds: [...]);
+/// ref.watch(activeWorkoutProvider(args))
+/// ```
+final activeWorkoutProvider = AsyncNotifierProvider.family
+    .autoDispose<ActiveWorkoutNotifier, ActiveWorkoutState, ActiveWorkoutArgs>(
+  ActiveWorkoutNotifier.new,
+);
