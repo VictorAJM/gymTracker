@@ -25,7 +25,16 @@ final routineFeatureExerciseRepoProvider = Provider<ExerciseRepository>((ref) {
 ///
 /// Used by [SplitSelectionScreen] to show exercise counts and the Edit button.
 final activeRoutineProvider = FutureProvider<Routine?>((ref) async {
+  print('DEBUG: activeRoutineProvider starting...');
   final repo = ref.watch(routineRepositoryProvider);
-  final result = await repo.getActiveRoutine();
-  return result.fold((_) => null, (r) => r);
+  try {
+    final result = await repo.getActiveRoutine();
+    print(
+      'DEBUG: activeRoutineProvider result: ${result.isRight() ? "success" : "failure"}',
+    );
+    return result.fold((_) => null, (r) => r);
+  } catch (e, st) {
+    print('DEBUG: activeRoutineProvider ERROR: $e\n$st');
+    rethrow;
+  }
 });

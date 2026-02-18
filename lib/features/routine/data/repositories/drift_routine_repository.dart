@@ -111,8 +111,10 @@ class DriftRoutineRepository implements RoutineRepository {
 
   @override
   Future<Either<Failure, Routine>> getActiveRoutine() async {
+    print('DEBUG: DriftRoutineRepository.getActiveRoutine called');
     try {
       final row = await _routineDao.getActiveRoutine();
+      print('DEBUG: _routineDao.getActiveRoutine returned: $row');
       if (row == null) {
         return left(const NotFoundFailure(message: 'No active routine set.'));
       }
