@@ -36,6 +36,8 @@ class ActiveWorkoutScreen extends ConsumerWidget {
 
     final asyncState = ref.watch(activeWorkoutProvider(args));
 
+    print(asyncState);
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
@@ -57,15 +59,17 @@ class ActiveWorkoutScreen extends ConsumerWidget {
       body: asyncState.when(
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (err, _) => _ErrorView(message: err.toString()),
-        data: (state) => state.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (message) => _ErrorView(message: message),
-          loaded: (exercises, expandedExerciseId, _) => _LoadedBody(
-            exercises: exercises,
-            expandedExerciseId: expandedExerciseId,
-            args: args,
-          ),
-        ),
+        data:
+            (state) => state.when(
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (message) => _ErrorView(message: message),
+              loaded:
+                  (exercises, expandedExerciseId, _) => _LoadedBody(
+                    exercises: exercises,
+                    expandedExerciseId: expandedExerciseId,
+                    args: args,
+                  ),
+            ),
       ),
     );
   }
@@ -73,25 +77,26 @@ class ActiveWorkoutScreen extends ConsumerWidget {
   void _onFinish(BuildContext context) {
     showDialog<void>(
       context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Finish Workout?'),
-        content: const Text(
-          'Your sets have already been saved. Ready to wrap up?',
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Keep going'),
+      builder:
+          (_) => AlertDialog(
+            title: const Text('Finish Workout?'),
+            content: const Text(
+              'Your sets have already been saved. Ready to wrap up?',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('Keep going'),
+              ),
+              FilledButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // close dialog
+                  Navigator.of(context).pop(); // back to split selection
+                },
+                child: const Text('Finish'),
+              ),
+            ],
           ),
-          FilledButton(
-            onPressed: () {
-              Navigator.of(context).pop(); // close dialog
-              Navigator.of(context).pop(); // back to split selection
-            },
-            child: const Text('Finish'),
-          ),
-        ],
-      ),
     );
   }
 }
@@ -143,11 +148,12 @@ class _LoadedBody extends ConsumerWidget {
           entry: entry,
           isExpanded: expandedExerciseId == exerciseId,
           onTap: () => notifier.toggleExpand(exerciseId),
-          onAddSet: (weight, reps) => notifier.addSet(
-            exerciseId: exerciseId,
-            weightKg: weight,
-            reps: reps,
-          ),
+          onAddSet:
+              (weight, reps) => notifier.addSet(
+                exerciseId: exerciseId,
+                weightKg: weight,
+                reps: reps,
+              ),
           onRemoveSet: (setId) => notifier.removeSet(exerciseId, setId),
         );
       },
@@ -179,9 +185,9 @@ class _ErrorView extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               message,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: colorScheme.outline,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: colorScheme.outline),
               textAlign: TextAlign.center,
             ),
           ],

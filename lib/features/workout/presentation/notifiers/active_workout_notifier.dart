@@ -11,13 +11,11 @@ import 'package:gym_tracker/features/workout/presentation/providers/exercise_pro
 import 'package:gym_tracker/features/workout/presentation/providers/workout_providers.dart';
 import 'package:gym_tracker/features/workout/presentation/state/active_workout_state.dart';
 import 'package:uuid/uuid.dart';
+import 'package:gym_tracker/core/constants/routine_constants.dart';
 
 /// Arguments passed to [activeWorkoutProvider] via `.family`.
 class ActiveWorkoutArgs {
-  const ActiveWorkoutArgs({
-    required this.splitType,
-    required this.exerciseIds,
-  });
+  const ActiveWorkoutArgs({required this.splitType, required this.exerciseIds});
 
   final SplitType splitType;
   final List<String> exerciseIds;
@@ -48,8 +46,9 @@ class ActiveWorkoutArgs {
 /// - Track which exercise card is expanded
 /// - Validate and save sets via [SaveSetUseCase]
 /// - Compute progress badges via [CalculateProgressUseCase]
-class ActiveWorkoutNotifier extends AutoDisposeFamilyAsyncNotifier<
-    ActiveWorkoutState, ActiveWorkoutArgs> {
+class ActiveWorkoutNotifier
+    extends
+        AutoDisposeFamilyAsyncNotifier<ActiveWorkoutState, ActiveWorkoutArgs> {
   final _uuid = const Uuid();
 
   late final String _sessionId;
@@ -63,7 +62,14 @@ class ActiveWorkoutNotifier extends AutoDisposeFamilyAsyncNotifier<
 
     // Load all exercises for the day
     final entries = <ExerciseEntry>[];
-    for (final exerciseId in arg.exerciseIds) {
+    var targetIds = arg.exerciseIds;
+
+    // Fallback: If no exercises passed, try to use defaults for this split.
+    if (targetIds.isEmpty && defaultSplitExercises.containsKey(arg.splitType)) {
+      targetIds = defaultSplitExercises[arg.splitType]!;
+    }
+
+    for (final exerciseId in targetIds) {
       final exerciseResult = await exerciseRepo.getExerciseById(exerciseId);
       final exercise = exerciseResult.getOrElse(
         (_) => Exercise(
@@ -77,10 +83,12 @@ class ActiveWorkoutNotifier extends AutoDisposeFamilyAsyncNotifier<
       final prevResult = await getPrevPerf(exerciseId);
       final previousPerformance = prevResult.fold((_) => null, (p) => p);
 
-      entries.add(ExerciseEntry(
-        exercise: exercise,
-        previousPerformance: previousPerformance,
-      ));
+      entries.add(
+        ExerciseEntry(
+          exercise: exercise,
+          previousPerformance: previousPerformance,
+        ),
+      );
     }
 
     return ActiveWorkoutState.loaded(
@@ -120,8 +128,9 @@ class ActiveWorkoutNotifier extends AutoDisposeFamilyAsyncNotifier<
     final current = state.valueOrNull;
     if (current is! ActiveWorkoutLoaded) return;
 
-    final entryIndex =
-        current.exercises.indexWhere((e) => e.exercise.id == exerciseId);
+    final entryIndex = current.exercises.indexWhere(
+      (e) => e.exercise.id == exerciseId,
+    );
     if (entryIndex == -1) return;
 
     final entry = current.exercises[entryIndex];
@@ -153,15 +162,16 @@ class ActiveWorkoutNotifier extends AutoDisposeFamilyAsyncNotifier<
 
     // ── Compute progress badge ──────────────────────────────────────────────
     final calcProgress = ref.read(calculateProgressProvider);
-    final savedSet = SaveSetParams(
-      id: setId,
-      workoutSessionId: _sessionId,
-      exerciseId: exerciseId,
-      setNumber: setNumber,
-      weightKg: weightKg,
-      reps: reps,
-      completedAt: DateTime.now(),
-    ).toSetLog();
+    final savedSet =
+        SaveSetParams(
+          id: setId,
+          workoutSessionId: _sessionId,
+          exerciseId: exerciseId,
+          setNumber: setNumber,
+          weightKg: weightKg,
+          reps: reps,
+          completedAt: DateTime.now(),
+        ).toSetLog();
 
     final progressResult = await calcProgress(
       CalculateProgressParams(
@@ -182,13 +192,9 @@ class ActiveWorkoutNotifier extends AutoDisposeFamilyAsyncNotifier<
     );
 
     final updatedEntries = List<ExerciseEntry>.from(current.exercises);
-    updatedEntries[entryIndex] = entry.copyWith(
-      sets: [...entry.sets, newSet],
-    );
+    updatedEntries[entryIndex] = entry.copyWith(sets: [...entry.sets, newSet]);
 
-    state = AsyncData(
-      current.copyWith(exercises: updatedEntries),
-    );
+    state = AsyncData(current.copyWith(exercises: updatedEntries));
   }
 
   /// Removes a previously logged set from the in-memory list.
@@ -197,18 +203,20 @@ class ActiveWorkoutNotifier extends AutoDisposeFamilyAsyncNotifier<
     final current = state.valueOrNull;
     if (current is! ActiveWorkoutLoaded) return;
 
-    final entryIndex =
-        current.exercises.indexWhere((e) => e.exercise.id == exerciseId);
+    final entryIndex = current.exercises.indexWhere(
+      (e) => e.exercise.id == exerciseId,
+    );
     if (entryIndex == -1) return;
 
     final entry = current.exercises[entryIndex];
-    final updatedSets = entry.sets
-        .where((s) => s.id != setId)
-        .toList()
-        .asMap()
-        .entries
-        .map((e) => e.value.copyWith(setNumber: e.key + 1))
-        .toList();
+    final updatedSets =
+        entry.sets
+            .where((s) => s.id != setId)
+            .toList()
+            .asMap()
+            .entries
+            .map((e) => e.value.copyWith(setNumber: e.key + 1))
+            .toList();
 
     final updatedEntries = List<ExerciseEntry>.from(current.exercises);
     updatedEntries[entryIndex] = entry.copyWith(sets: updatedSets);
@@ -221,9 +229,9 @@ class ActiveWorkoutNotifier extends AutoDisposeFamilyAsyncNotifier<
   /// Returns a sensible fallback [MuscleGroup] for the given split type.
   /// Only used when an exercise ID can't be resolved from the DB.
   MuscleGroup _fallbackMuscle(SplitType splitType) => switch (splitType) {
-        SplitType.push => MuscleGroup.chest,
-        SplitType.pull => MuscleGroup.back,
-        SplitType.legs => MuscleGroup.quads,
-        SplitType.rest => MuscleGroup.chest,
-      };
+    SplitType.push => MuscleGroup.chest,
+    SplitType.pull => MuscleGroup.back,
+    SplitType.legs => MuscleGroup.quads,
+    SplitType.rest => MuscleGroup.chest,
+  };
 }

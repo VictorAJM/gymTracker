@@ -38,14 +38,16 @@ class AppDatabase extends _$AppDatabase {
 
   /// Constructor for in-memory databases used in tests.
   ///
-  /// Seeding is disabled so tests start with a clean, empty [exercises] table.
-  AppDatabase.forTesting(super.executor) : _seedOnCreate = false;
+  /// Seeding is disabled by default so tests start with a clean, empty [exercises] table,
+  /// but can be enabled by setting [seedOnCreate] to true.
+  AppDatabase.forTesting(super.executor, {bool seedOnCreate = false})
+    : _seedOnCreate = seedOnCreate;
 
   /// Whether to seed the exercise master list when the database is first created.
   final bool _seedOnCreate;
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -56,6 +58,12 @@ class AppDatabase extends _$AppDatabase {
     onUpgrade: (m, from, to) async {
       if (from < 2) {
         await _migrateV1toV2(m);
+      }
+      if (from < 3) {
+        await _migrateV2toV3(m);
+      }
+      if (from < 4) {
+        await _migrateV3toV4(m);
       }
     },
   );
@@ -106,19 +114,111 @@ class AppDatabase extends _$AppDatabase {
     await _seedExercisesIfEmpty();
   }
 
+  // ── v2 → v3 migration ────────────────────────────────────────────────────
+
+  /// Migrates from schema v2 to v3.
+  ///
+  /// This migration ensures that all users have the latest master list of
+  /// exercises. It re-runs the seeder, which uses `insertOnConflictUpdate`
+  /// (via [ExerciseDao.upsertExercise]) to add new exercises and potentially
+  /// update existing built-in ones. Custom exercises are unaffected because
+  /// their IDs won't match the master list IDs.
+  Future<void> _migrateV2toV3(Migrator m) async {
+    await _seedMasterExercises();
+  }
+
   // ── Exercise seeder ───────────────────────────────────────────────────────
 
   /// Seeds the [exercises] table with a built-in master list of common gym
   /// exercises if the table is currently empty.
-  ///
-  /// All seeded exercises have [isCustom] = false and cannot be deleted by the
-  /// user (enforced in [DriftExerciseRepository.deleteExercise]).
   Future<void> _seedExercisesIfEmpty() async {
     final existing = await exerciseDao.getAllExercises();
     if (existing.isNotEmpty) return;
+    await _seedMasterExercises();
+  }
 
+  /// Iterates through the master exercise list and upserts each one.
+  ///
+  /// This is safe to run on existing databases because [ExerciseDao.upsertExercise]
+  /// uses `insertOnConflictUpdate`.
+  Future<void> _seedMasterExercises() async {
     for (final seed in _masterExerciseList) {
       await exerciseDao.upsertExercise(seed);
+    }
+  }
+
+  // ── v3 → v4 migration ────────────────────────────────────────────────────
+
+  /// Migrates from schema v3 to v4.
+  ///
+  /// Populates empty split days in existing routines with default exercises.
+  /// This addresses the issue where users had the new exercises in the DB
+  /// but their routines remained empty.
+  Future<void> _migrateV3toV4(Migrator m) async {
+    // 1. Get all split days
+    final allSplitDays = await select(splitDays).get();
+    const uuid = Uuid();
+
+    for (final day in allSplitDays) {
+      // 2. Check if the day has any exercises
+      final exerciseCount = await (select(routineExercises)..where(
+        (t) => t.splitDayId.equals(day.id),
+      )).get().then((rows) => rows.length);
+
+      if (exerciseCount > 0) continue; // Skip populated days
+
+      // 3. Populate empty days based on split type
+      final exercisesToInsert = <String>[];
+
+      switch (day.splitType) {
+        case SplitType.push:
+          exercisesToInsert.addAll([
+            'ex-bench-press',
+            'ex-ohp',
+            'ex-incline-bench',
+            'ex-lateral-raise',
+            'ex-tricep-pushdown',
+            'ex-decline-bench', // New
+            'ex-arnold-press', // New
+          ]);
+          break;
+        case SplitType.pull:
+          exercisesToInsert.addAll([
+            'ex-deadlift',
+            'ex-pull-up',
+            'ex-barbell-row',
+            'ex-lat-pulldown',
+            'ex-barbell-curl',
+            'ex-t-bar-row', // New
+            'ex-preacher-curl', // New
+          ]);
+          break;
+        case SplitType.legs:
+          exercisesToInsert.addAll([
+            'ex-squat',
+            'ex-rdl',
+            'ex-leg-press',
+            'ex-leg-curl',
+            'ex-seated-calf',
+            'ex-hack-squat', // New
+            'ex-sumo-deadlift', // New
+          ]);
+          break;
+        case SplitType.rest:
+          continue;
+      }
+
+      // 4. Insert exercises
+      for (var i = 0; i < exercisesToInsert.length; i++) {
+        await into(routineExercises).insert(
+          RoutineExercisesCompanion(
+            id: Value(uuid.v4()),
+            splitDayId: Value(day.id),
+            exerciseId: Value(exercisesToInsert[i]),
+            orderIndex: Value(i),
+          ),
+        );
+      }
     }
   }
 }
@@ -348,6 +448,202 @@ final List<ExercisesCompanion> _masterExerciseList = [
     MuscleGroup.core,
     EquipmentType.bodyweight,
   ),
+  // ── PUSH – Chest (Additional) ─────────────────────────────────────────────
+  _ex(
+    'ex-decline-bench',
+    'Decline Bench Press',
+    MuscleGroup.chest,
+    EquipmentType.barbell,
+    secondary: [MuscleGroup.shoulders, MuscleGroup.triceps],
+  ),
+  _ex(
+    'ex-machine-chest-press',
+    'Machine Chest Press',
+    MuscleGroup.chest,
+    EquipmentType.machine,
+    secondary: [MuscleGroup.shoulders, MuscleGroup.triceps],
+  ),
+  _ex('ex-pec-deck', 'Pec Deck', MuscleGroup.chest, EquipmentType.machine),
+
+  // ── PUSH – Shoulders (Additional) ─────────────────────────────────────────
+  _ex(
+    'ex-arnold-press',
+    'Arnold Press',
+    MuscleGroup.shoulders,
+    EquipmentType.dumbbell,
+    secondary: [MuscleGroup.triceps],
+  ),
+  _ex(
+    'ex-upright-row',
+    'Upright Row',
+    MuscleGroup.shoulders,
+    EquipmentType.barbell,
+    secondary: [MuscleGroup.traps, MuscleGroup.biceps],
+  ),
+  _ex(
+    'ex-cable-lateral-raise',
+    'Cable Lateral Raise',
+    MuscleGroup.shoulders,
+    EquipmentType.cable,
+  ),
+
+  // ── PUSH – Triceps (Additional) ───────────────────────────────────────────
+  _ex(
+    'ex-close-grip-bench',
+    'Close-Grip Bench Press',
+    MuscleGroup.triceps,
+    EquipmentType.barbell,
+    secondary: [MuscleGroup.chest, MuscleGroup.shoulders],
+  ),
+  _ex(
+    'ex-tricep-kickback',
+    'Tricep Kickback',
+    MuscleGroup.triceps,
+    EquipmentType.dumbbell,
+  ),
+  _ex(
+    'ex-overhead-cable-ext',
+    'Overhead Cable Extension',
+    MuscleGroup.triceps,
+    EquipmentType.cable,
+  ),
+
+  // ── PULL – Back (Additional) ──────────────────────────────────────────────
+  _ex(
+    'ex-t-bar-row',
+    'T-Bar Row',
+    MuscleGroup.back,
+    EquipmentType.barbell,
+    secondary: [MuscleGroup.biceps],
+  ),
+  _ex(
+    'ex-pendlay-row',
+    'Pendlay Row',
+    MuscleGroup.back,
+    EquipmentType.barbell,
+    secondary: [MuscleGroup.biceps, MuscleGroup.hamstrings],
+  ),
+  _ex(
+    'ex-single-arm-cable-row',
+    'Single-Arm Cable Row',
+    MuscleGroup.back,
+    EquipmentType.cable,
+    secondary: [MuscleGroup.biceps],
+  ),
+  _ex(
+    'ex-assisted-pull-up',
+    'Assisted Pull-Up',
+    MuscleGroup.back,
+    EquipmentType.machine,
+    secondary: [MuscleGroup.biceps],
+  ),
+  _ex(
+    'ex-straight-arm-pulldown',
+    'Straight-Arm Pulldown',
+    MuscleGroup.back,
+    EquipmentType.cable,
+  ),
+
+  // ── PULL – Biceps (Additional) ────────────────────────────────────────────
+  _ex(
+    'ex-preacher-curl',
+    'Preacher Curl',
+    MuscleGroup.biceps,
+    EquipmentType.ezBar,
+  ),
+  _ex(
+    'ex-concentration-curl',
+    'Concentration Curl',
+    MuscleGroup.biceps,
+    EquipmentType.dumbbell,
+  ),
+  _ex(
+    'ex-spider-curl',
+    'Spider Curl',
+    MuscleGroup.biceps,
+    EquipmentType.dumbbell,
+  ),
+
+  // ── LEGS – Quads (Additional) ─────────────────────────────────────────────
+  _ex(
+    'ex-hack-squat',
+    'Hack Squat',
+    MuscleGroup.quads,
+    EquipmentType.machine,
+    secondary: [MuscleGroup.glutes, MuscleGroup.hamstrings],
+  ),
+  _ex(
+    'ex-bulgarian-split-squat',
+    'Bulgarian Split Squat',
+    MuscleGroup.quads,
+    EquipmentType.dumbbell,
+    secondary: [MuscleGroup.glutes, MuscleGroup.hamstrings],
+  ),
+  _ex(
+    'ex-goblet-squat',
+    'Goblet Squat',
+    MuscleGroup.quads,
+    EquipmentType.dumbbell,
+    secondary: [MuscleGroup.glutes],
+  ),
+
+  // ── LEGS – Glutes/Hamstrings (Additional) ─────────────────────────────────
+  _ex(
+    'ex-sumo-deadlift',
+    'Sumo Deadlift',
+    MuscleGroup.hamstrings,
+    EquipmentType.barbell,
+    secondary: [MuscleGroup.glutes, MuscleGroup.quads, MuscleGroup.back],
+  ),
+  _ex(
+    'ex-standing-leg-curl',
+    'Standing Leg Curl',
+    MuscleGroup.hamstrings,
+    EquipmentType.machine,
+  ),
+  _ex(
+    'ex-glute-bridge',
+    'Glute Bridge',
+    MuscleGroup.glutes,
+    EquipmentType.bodyweight,
+    secondary: [MuscleGroup.hamstrings],
+  ),
+  _ex(
+    'ex-cable-kickback',
+    'Cable Kickback',
+    MuscleGroup.glutes,
+    EquipmentType.cable,
+  ),
+  _ex(
+    'ex-good-morning',
+    'Good Morning',
+    MuscleGroup.hamstrings,
+    EquipmentType.barbell,
+    secondary: [MuscleGroup.glutes, MuscleGroup.back],
+  ),
+
+  // ── LEGS – Calves (Additional) ────────────────────────────────────────────
+  _ex(
+    'ex-standing-calf-raise',
+    'Standing Calf Raise',
+    MuscleGroup.calves,
+    EquipmentType.machine,
+  ),
+
+  // ── Core (Additional) ─────────────────────────────────────────────────────
+  _ex(
+    'ex-hanging-leg-raise',
+    'Hanging Leg Raise',
+    MuscleGroup.core,
+    EquipmentType.bodyweight,
+  ),
+  _ex(
+    'ex-russian-twist',
+    'Russian Twist',
+    MuscleGroup.core,
+    EquipmentType.bodyweight,
+  ),
+  _ex('ex-cable-crunch', 'Cable Crunch', MuscleGroup.core, EquipmentType.cable),
 ];
 
 ExercisesCompanion _ex(

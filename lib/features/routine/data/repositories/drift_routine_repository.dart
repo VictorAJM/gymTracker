@@ -10,6 +10,7 @@ import 'package:gym_tracker/features/routine/data/mappers/routine_mapper.dart';
 import 'package:gym_tracker/features/routine/domain/entities/routine.dart';
 import 'package:gym_tracker/features/routine/domain/repositories/routine_repository.dart';
 import 'package:uuid/uuid.dart';
+import 'package:gym_tracker/core/constants/routine_constants.dart';
 
 class DriftRoutineRepository implements RoutineRepository {
   DriftRoutineRepository(this._routineDao, this._exerciseDao);
@@ -27,22 +28,55 @@ class DriftRoutineRepository implements RoutineRepository {
 
     final days = await Future.wait(
       splitDayRows.map((dayRow) async {
-        final exerciseRows = await _exerciseDao.getExercisesForSplitDay(
+        var exerciseRows = await _exerciseDao.getExercisesForSplitDay(
           dayRow.id,
         );
 
-        // Resolve each exerciseId to a domain Exercise.
-        // Rows are already ordered by orderIndex from the DAO.
-        final exercises = await Future.wait(
-          exerciseRows.map((re) async {
-            final exRow = await _routineDao.db.exerciseDao.getExerciseById(
-              re.exerciseId,
-            );
-            return exRow?.toDomain();
-          }),
-        );
+        // Helper to resolve rows to domain objects
+        Future<List<Exercise>> resolve(List<RoutineExerciseRow> rows) async {
+          final results = await Future.wait(
+            rows.map((re) async {
+              final exRow = await _routineDao.db.exerciseDao.getExerciseById(
+                re.exerciseId,
+              );
+              if (exRow == null) {
+                // Log warning internally or handle it, but for now we just filter nulls.
+              }
+              return exRow?.toDomain();
+            }),
+          );
+          return results.whereType<Exercise>().toList();
+        }
 
-        return dayRow.toDomain(exercises.whereType<Exercise>().toList());
+        var exercises = await resolve(exerciseRows);
+
+        // Self-healing: If the resolved list is empty (either no rows OR all rows were ghosts),
+        // and it corresponds to a standard split, populate it with default exercises.
+        if (exercises.isEmpty &&
+            defaultSplitExercises.containsKey(dayRow.splitType)) {
+          // Clear existing ghost rows first if any
+          if (exerciseRows.isNotEmpty) {
+            await _exerciseDao.deleteExercisesForSplitDay(dayRow.id);
+          }
+
+          final defaults = defaultSplitExercises[dayRow.splitType]!;
+
+          await _exerciseDao.replaceExercisesForSplitDay(dayRow.id, [
+            for (var i = 0; i < defaults.length; i++)
+              RoutineExercisesCompanion(
+                id: Value(_uuid.v4()),
+                splitDayId: Value(dayRow.id),
+                exerciseId: Value(defaults[i]),
+                orderIndex: Value(i),
+              ),
+          ]);
+
+          // Re-fetch and re-resolve
+          exerciseRows = await _exerciseDao.getExercisesForSplitDay(dayRow.id);
+          exercises = await resolve(exerciseRows);
+        }
+
+        return dayRow.toDomain(exercises);
       }),
     );
 
